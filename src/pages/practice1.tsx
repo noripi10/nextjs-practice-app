@@ -2,28 +2,30 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Image as ChakraImage } from '@chakra-ui/react';
 import styles from '../styles/practice1.module.css';
+import { useScroll } from '../hooks/useScroll';
 
 const Practice1 = () => {
-	const [displayScrollIcon, setDisplayScrollIcon] = useState(false);
+	const { displayScrollReset, onScrollTop } = useScroll();
+	// const [displayScrollIcon, setDisplayScrollIcon] = useState(false);
+	// const scrollEvent = useCallback(() => {
+	// 	const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	// 	requestAnimationFrame(() => {
+	// 		if (scrollTop > 100) {
+	// 			setDisplayScrollIcon(true);
+	// 		} else {
+	// 			setDisplayScrollIcon(false);
+	// 		}
+	// 	});
+	// }, []);
 
-	const scrollEvent = useCallback(() => {
-		const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		requestAnimationFrame(() => {
-			if (scrollTop > 100) {
-				setDisplayScrollIcon(true);
-			} else {
-				setDisplayScrollIcon(false);
-			}
-		});
-	}, []);
-
-	useEffect(() => {
-		window.addEventListener('scroll', scrollEvent, { passive: true });
-		return () => {
-			window.removeEventListener('scroll', scrollEvent);
-		};
-	}, [scrollEvent]);
+	// useEffect(() => {
+	// 	window.addEventListener('scroll', scrollEvent, { passive: true });
+	// 	return () => {
+	// 		window.removeEventListener('scroll', scrollEvent);
+	// 	};
+	// }, [scrollEvent]);
 
 	return (
 		<>
@@ -39,12 +41,14 @@ const Practice1 = () => {
 						<Link key={image.url + index.toString()} href={image.url}>
 							<a>
 								<div className={styles.nav_item}>
-									<Image
-										className={styles.image}
+									<ChakraImage
+										borderRadius="full"
+										boxSize="80px"
 										src={image.url}
 										alt={`Image ${image.url}`}
-										width={80}
-										height={80}
+										// className={styles.image}
+										// width={80}
+										// height={80}
 									/>
 									<div className={styles.nax_item_description}>
 										{image.description}
@@ -55,9 +59,9 @@ const Practice1 = () => {
 					))}
 				</div>
 			</main>
-			{displayScrollIcon && (
+			{displayScrollReset && (
 				<div className={styles.top_scroll_container}>
-					<div onClick={() => window.scrollTo(0, 0)}>
+					<div onClick={onScrollTop}>
 						<div className={styles.top_scroll_item}>top↑</div>
 					</div>
 				</div>
