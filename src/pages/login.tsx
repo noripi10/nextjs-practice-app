@@ -12,12 +12,14 @@ import {
   InputRightElement,
   Stack,
   Text,
+  useColorMode,
 } from '@chakra-ui/react'
-import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FaGoogle, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
 import { useState, ChangeEvent } from 'react'
 import { useFirebaseAuth } from '../hooks/useFirebaseAuth'
 
 const Login = () => {
+  const { colorMode, toggleColorMode } = useColorMode()
   const { loginUser, onSignInMailPassword, onSignUpMailPassword, onSignInWithGoogle, signOut } = useFirebaseAuth()
   const [mailAddress, setMailAddress] = useState('')
   const [password, setPassword] = useState('')
@@ -51,7 +53,10 @@ const Login = () => {
         <title>practice1</title>
       </Head>
       <header className={styles.header}>
-        <div>ログイン</div>
+        <div className={styles.header__title}>ログイン</div>
+        <Button bg='transparent' color='white' border='none' onClick={toggleColorMode}>
+          {colorMode === 'dark' ? <FaMoon /> : <FaSun />}
+        </Button>
       </header>
       <Flex display='flex' justify='center' align='center' height='xl'>
         {!!!loginUser ? (
