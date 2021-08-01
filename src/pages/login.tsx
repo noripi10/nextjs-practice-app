@@ -67,8 +67,8 @@ const Login = () => {
             p={2}
             pb={8}
           >
-            <Heading as='h2' size='md' textAlign='center' pt={2}>
-              <Text>ユーザー登録</Text>
+            <Heading as='h1' size='lg' textAlign='center' pt={2}>
+              <Text fontSize={{ base: 'md', md: 'lg' }}>ユーザー登録</Text>
             </Heading>
             <Divider my={6} />
             <Stack px={6} pt={6} justify='center' align='center'>
