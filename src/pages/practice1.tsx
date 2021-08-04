@@ -1,21 +1,57 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import { Box, Image as ChakraImage, Text, Link as ChakraLink, HStack } from '@chakra-ui/react'
+import {
+  Box,
+  Image as ChakraImage,
+  Text,
+  Link as ChakraLink,
+  HStack,
+  Button,
+  Stack,
+  IconButton,
+  useColorMode,
+  ColorMode,
+} from '@chakra-ui/react'
+import { FiSun, FiMoon } from 'react-icons/fi'
 import styles from '../styles/practice1.module.css'
 import { useScroll } from '../hooks/useScroll'
 
 const Practice1 = () => {
+  const { colorMode, setColorMode } = useColorMode()
   const [selectImage, setSelectImage] = useState(images[0])
   const { displayScrollReset, onScrollTop } = useScroll()
 
+  const onChangeColorMode = () => {
+    setColorMode((prevColorMode: ColorMode) => (prevColorMode === 'dark' ? 'light' : 'dark'))
+  }
   return (
     <>
       <Head>
         <title>practice1</title>
       </Head>
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <div>Practice1</div>
-      </header>
+      </header> */}
+      <HStack
+        width='100%'
+        h={{ base: 10, md: 16 }}
+        p={4}
+        color='white'
+        fontWeight='bold'
+        bgGradient='linear(to-br, teal.400, teal.200 )'
+      >
+        <Stack flexGrow={1}>
+          <Text>Practice1</Text>
+        </Stack>
+        <IconButton
+          aria-label='mode-change'
+          icon={colorMode === 'light' ? <FiMoon /> : <FiSun />}
+          color='darkgray'
+          bg='transparent'
+          fontSize={28}
+          onClick={onChangeColorMode}
+        />
+      </HStack>
       <main className={styles.main}>
         <Box>
           <div className={styles.nav}>
@@ -29,7 +65,7 @@ const Practice1 = () => {
                 }}
                 _hover={{ cursor: 'pointer' }}
               >
-                <HStack className={styles.nav_item} width={{ base: '150px', md: '300px' }}>
+                <HStack className={styles.nav_item} w={{ base: '150px', md: '300px' }} h={{ base: '50px', md: '80px' }}>
                   <ChakraImage
                     borderRadius='full'
                     boxSize={{ base: '30px', md: '60px' }}
