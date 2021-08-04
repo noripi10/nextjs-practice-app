@@ -11,6 +11,10 @@ import {
   IconButton,
   useColorMode,
   ColorMode,
+  SkeletonCircle,
+  Skeleton,
+  SkeletonText,
+  VStack,
 } from '@chakra-ui/react'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import styles from '../styles/practice1.module.css'
@@ -45,7 +49,7 @@ const Practice1 = () => {
         </Stack>
         <IconButton
           aria-label='mode-change'
-          icon={colorMode === 'light' ? <FiMoon /> : <FiSun />}
+          icon={colorMode === 'dark' ? <FiSun /> : <FiMoon />}
           color='darkgray'
           bg='transparent'
           fontSize={28}
@@ -79,7 +83,7 @@ const Practice1 = () => {
           </div>
         </Box>
         <div>
-          <Box p={4} display={{ md: 'flex' }}>
+          <Box p={4} m={2} display={{ md: 'flex' }} bg='gray.100'>
             <Box flexShrink={0}>
               <ChakraImage
                 borderRadius='lg'
@@ -102,6 +106,15 @@ const Practice1 = () => {
                 your first customers.
               </Text>
             </Box>
+          </Box>
+          <Box p={6} m={2} borderRadius='8' boxShadow='lg' mt='1'>
+            <HStack justify='flex-start' align='flex-start'>
+              <SkeletonCircle size='20' mb='4' />
+              <VStack w='80%' justify='flex-start' align='flex-start' pl='2'>
+                <SkeletonText noOfLines={5} w='100%' />
+              </VStack>
+            </HStack>
+            <SkeletonText noOfLines={4} />
           </Box>
         </div>
       </main>
