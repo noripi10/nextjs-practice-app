@@ -52,15 +52,15 @@
   pointer-events: stroke;
 }
 
-@media only screen and (max-width: 1080px) {
+/* @media only screen and (max-width: 1080px) {
   .header {
     height: 70px;
   }
-}
+} */
 
 .top_scroll_container {
   position: fixed;
-  bottom: 100px;
+  bottom: 70px;
   right: 50px;
 }
 

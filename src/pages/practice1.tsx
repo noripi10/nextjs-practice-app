@@ -6,7 +6,6 @@ import {
   Text,
   Link as ChakraLink,
   HStack,
-  Button,
   Stack,
   IconButton,
   useColorMode,
@@ -38,7 +37,7 @@ const Practice1 = () => {
       </header> */}
       <HStack
         width='100%'
-        h={{ base: 10, md: 16 }}
+        h={{ base: '80px', md: '100px' }}
         p={4}
         color='white'
         fontWeight='bold'
@@ -56,7 +55,30 @@ const Practice1 = () => {
           onClick={onChangeColorMode}
         />
       </HStack>
-      <main className={styles.main}>
+      <HStack
+        position='fixed'
+        top={displayScrollReset ? 0 : -80}
+        p={4}
+        boxShadow='md'
+        width='100%'
+        height={{ md: '80px' }}
+        bgGradient='linear(to-br, blue.200, red.200)'
+        zIndex={100}
+      >
+        <Stack flexGrow={1}>
+          <Text>Practice1</Text>
+        </Stack>
+        <IconButton
+          aria-label='mode-change'
+          icon={colorMode === 'dark' ? <FiSun /> : <FiMoon />}
+          color='darkgray'
+          bg='transparent'
+          fontSize={28}
+          onClick={onChangeColorMode}
+        />
+      </HStack>
+
+      <HStack m='3' justify='flex-start' align='flex-start'>
         <Box>
           <div className={styles.nav}>
             {images.map((image, index) => (
@@ -68,22 +90,38 @@ const Practice1 = () => {
                   setSelectImage(image)
                 }}
                 _hover={{ cursor: 'pointer' }}
+                background={colorMode === 'dark' ? 'gray.600' : 'white'}
+                m='1'
+                p={{ base: '2', md: '3' }}
+                w={{ base: '150px', md: '300px' }}
+                h={{ base: '50px', md: '80px' }}
+                borderRadius='8'
+                boxShadow='3'
+                justifyContent='center'
+                alignItems='center'
               >
-                <HStack className={styles.nav_item} w={{ base: '150px', md: '300px' }} h={{ base: '50px', md: '80px' }}>
+                <HStack justifyContent='flex-start' alignItems='center'>
                   <ChakraImage
                     borderRadius='full'
                     boxSize={{ base: '30px', md: '60px' }}
                     src={image.url}
                     alt={`${image.description}`}
                   />
-                  <div className={styles.nax_item_description}>{image.description}</div>
+                  <Text fontSize={{ base: '11px', md: '16px' }}>{image.description}</Text>
                 </HStack>
               </Box>
             ))}
           </div>
         </Box>
         <div>
-          <Box p={4} m={2} display={{ md: 'flex' }} bg='gray.100'>
+          <Box
+            p={4}
+            m={2}
+            display={{ md: 'flex' }}
+            background={colorMode === 'dark' ? 'gray.600' : 'white'}
+            boxShadow='md'
+            borderRadius='4'
+          >
             <Box flexShrink={0}>
               <ChakraImage
                 borderRadius='lg'
@@ -101,13 +139,13 @@ const Practice1 = () => {
               <ChakraLink mt={1} display='block' fontSize='lg' lineHeight='normal' fontWeight='semibold' href='#'>
                 Finding customers for your new business
               </ChakraLink>
-              <Text mt={2} color='gray.500'>
+              <Text mt={2} color={colorMode === 'dark' ? 'gray.200' : 'gray.500'}>
                 Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find
                 your first customers.
               </Text>
             </Box>
           </Box>
-          <Box p={6} m={2} borderRadius='8' boxShadow='lg' mt='1'>
+          <Box p={6} m={2} borderRadius='4' boxShadow='lg' mt='1'>
             <HStack justify='flex-start' align='flex-start'>
               <SkeletonCircle size='20' mb='4' />
               <VStack w='80%' justify='flex-start' align='flex-start' pl='2'>
@@ -117,7 +155,7 @@ const Practice1 = () => {
             <SkeletonText noOfLines={4} />
           </Box>
         </div>
-      </main>
+      </HStack>
       {displayScrollReset && (
         <div className={styles.top_scroll_container}>
           <div onClick={onScrollTop}>
