@@ -1,6 +1,6 @@
 import styles from '../styles/login.module.css'
 import Head from 'next/head'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import {
   Box,
   Button,
