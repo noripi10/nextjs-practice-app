@@ -1,39 +1,35 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react'
 
 export const useScroll = () => {
-	const [displayScrollReset, setDisplayScrollReset] = useState(false);
+  const [displayScrollReset, setDisplayScrollReset] = useState(false)
 
-	const onScrollTop = useCallback(() => {
-		if (displayScrollReset) {
-			window.scrollTo(0, 0);
-		}
-	}, [displayScrollReset]);
+  const onScrollTop = useCallback(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
-	const scrollEventHandler = useCallback((event: any) => {
-		// console.log(event);
+  const scrollEventHandler = useCallback((event: Event) => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
 
-		const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // requestAnimationFrame(() => {
+    // headerの高さ100pxよりスクロール位置が下がったらコントロールを表示する
+    if (scrollTop > 100) {
+      setDisplayScrollReset(true)
+    } else {
+      setDisplayScrollReset(false)
+    }
+    // });
+  }, [])
 
-		// requestAnimationFrame(() => {
-		// headerの高さ100pxよりスクロール位置が下がったらコントロールを表示する
-		if (scrollTop > 100) {
-			setDisplayScrollReset(true);
-		} else {
-			setDisplayScrollReset(false);
-		}
-		// });
-	}, []);
+  useEffect(() => {
+    window.addEventListener('scroll', scrollEventHandler)
 
-	useEffect(() => {
-		window.addEventListener('scroll', scrollEventHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollEventHandler)
+    }
+  }, [scrollEventHandler])
 
-		return () => {
-			window.removeEventListener('scroll', scrollEventHandler);
-		};
-	}, [scrollEventHandler]);
-
-	return {
-		displayScrollReset,
-		onScrollTop,
-	};
-};
+  return {
+    displayScrollReset,
+    onScrollTop,
+  }
+}

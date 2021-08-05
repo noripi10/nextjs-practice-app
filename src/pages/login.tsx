@@ -1,5 +1,6 @@
 import styles from '../styles/login.module.css'
 import Head from 'next/head'
+import router, { useRouter } from 'next/router'
 import {
   Box,
   Button,
@@ -15,12 +16,17 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { FaGoogle, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
-import { useState, ChangeEvent } from 'react'
-import { useFirebaseAuth } from '../hooks/useFirebaseAuth'
+import { useState, ChangeEvent, useContext } from 'react'
+import { AuthContext, AuthContextProps, useLogin } from '../provider/authProvider'
+import { useEffect } from 'react'
 
 const Login = () => {
+  const router = useRouter()
+  const { loginUser, onSignInMailPassword, onSignUpMailPassword, onSignInWithGoogle, signOut } =
+    useContext<AuthContextProps>(AuthContext)
+  const isLogin = useLogin()
   const { colorMode, toggleColorMode } = useColorMode()
-  const { loginUser, onSignInMailPassword, onSignUpMailPassword, onSignInWithGoogle, signOut } = useFirebaseAuth()
+
   const [mailAddress, setMailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [displayPassword, setDisplayPassword] = useState(false)
@@ -47,6 +53,13 @@ const Login = () => {
     }
   }
 
+  // loginしたら遷移
+  useEffect(() => {
+    if (isLogin) {
+      router.replace('/practice1')
+    }
+  }, [isLogin, router])
+
   return (
     <>
       <Head>
@@ -55,7 +68,7 @@ const Login = () => {
       <header className={styles.header}>
         <div className={styles.header__title}>ログイン</div>
         <Button bg='transparent' color='white' border='none' onClick={toggleColorMode}>
-          {colorMode === 'dark' ? <FaMoon /> : <FaSun />}
+          {colorMode === 'dark' ? <FaSun /> : <FaMoon />}
         </Button>
       </header>
       <Flex display='flex' justify='center' align='center' height='xl'>
@@ -72,8 +85,8 @@ const Login = () => {
             p={2}
             pb={8}
           >
-            <Heading as='h2' size='md' textAlign='center' pt={2}>
-              <Text>ユーザー登録</Text>
+            <Heading as='h1' size='lg' textAlign='center' pt={2}>
+              <Text fontSize={{ base: 'md', md: 'lg' }}>ユーザー登録</Text>
             </Heading>
             <Divider my={6} />
             <Stack px={6} pt={6} justify='center' align='center'>
