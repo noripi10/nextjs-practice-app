@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, ChangeEvent, useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import {
@@ -14,7 +14,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react'
-import { FaGoogle, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { AuthContext, AuthContextProps, useLogin } from '../api/AuthProvider'
@@ -25,10 +25,10 @@ type FormInputType = {
   password: string
 }
 
-const Login = () => {
+const Register = () => {
   const router = useRouter()
   // 認証系（プロバイダ情報）
-  const { loginUser, onSignInMailPassword, onSignInWithGoogle, signOut } = useContext<AuthContextProps>(AuthContext)
+  const { loginUser, onSignUpMailPassword, signOut } = useContext<AuthContextProps>(AuthContext)
   const isLogin = useLogin()
 
   // ダークモード
@@ -43,8 +43,8 @@ const Login = () => {
 
   const [displayPassword, setDisplayPassword] = useState(false)
 
-  const onSignIn: SubmitHandler<FormInputType> = async ({ mail, password }) => {
-    const result = await onSignInMailPassword(mail, password)
+  const onSignUp: SubmitHandler<FormInputType> = async ({ mail, password }) => {
+    const result = await onSignUpMailPassword(mail, password)
     if (!result) {
       alert('失敗しました')
     }
@@ -64,7 +64,7 @@ const Login = () => {
       </Head>
       <header className={styles.header}>
         <Text flexGrow={1} color='white' fontWeight='bold'>
-          ログイン
+          登録
         </Text>
         <Button bg='transparent' color='white' border='none' onClick={toggleColorMode}>
           {colorMode === 'dark' ? <FaSun /> : <FaMoon />}
@@ -86,20 +86,18 @@ const Login = () => {
               p={2}
               pb={8}>
               <Heading as='h1' size='lg' textAlign='center' pt={2}>
-                <Text fontSize={{ base: 'md', md: 'lg' }}>Login Form</Text>
+                <Text fontSize={{ base: 'md', md: 'lg' }}>Register Form</Text>
               </Heading>
 
               <Divider my={6} />
 
-              <form onSubmit={handleSubmit(onSignIn)}>
+              <form onSubmit={handleSubmit(onSignUp)}>
                 <Stack px={2} pt={6} justify='center' align='center'>
                   <InputGroup justifyContent='flex-start' flexDirection='column' alignItems='flex-start'>
                     <Input
                       focusBorderColor='blue.400'
                       placeholder='メールアドレス'
                       size='sm'
-                      // value={mailAddress}
-                      // onChange={onChangeMailAddress}
                       {...register('mail', { required: '必須入力です' })}
                     />
                     {errors.password && (
@@ -115,8 +113,6 @@ const Login = () => {
                       size='sm'
                       type={displayPassword ? '' : 'password'}
                       justifyContent='center'
-                      // value={password}
-                      // onChange={onChangePassword}
                       {...register('password', {
                         required: '必須入力です',
                         minLength: { value: 5, message: 'パスワードは５文字以上入力くしてください' },
@@ -132,23 +128,13 @@ const Login = () => {
                     )}
                   </InputGroup>
                   <Button w='90%' bg='rgb(0, 92, 131)' color='white' type='submit'>
-                    メールアドレスを入力してログイン
+                    メールアドレスを登録してログイン
                   </Button>
-                  <Button w='90%' bg='rgb(102, 150, 172)' color='white' onClick={() => router.push('./register')}>
-                    ユーザー登録
+                  <Button w='90%' bg='rgb(102, 150, 172)' color='white' onClick={() => router.push('/login')}>
+                    ログイン画面へ
                   </Button>
                 </Stack>
               </form>
-
-              <Stack py={3}>
-                <Text>または</Text>
-              </Stack>
-
-              <Stack align='center' px={2}>
-                <Button w='90%' bg='rgb(0, 92, 131)' color='white' leftIcon={<FaGoogle />} onClick={onSignInWithGoogle}>
-                  Googleサインイン
-                </Button>
-              </Stack>
             </Box>
           </>
         ) : (
@@ -175,4 +161,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
