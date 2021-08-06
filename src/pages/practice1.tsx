@@ -18,7 +18,7 @@ import {
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import styles from '../styles/practice1.module.css'
 import { useScroll } from '../hooks/useScroll'
-import { AuthContext, AuthContextProps } from '../provider/authProvider'
+import { AuthContext, AuthContextProps } from '../api/AuthProvider'
 
 const Practice1 = () => {
   const { signOut } = useContext<AuthContextProps>(AuthContext)

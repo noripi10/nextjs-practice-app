@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { FaGoogle, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
 import { useState, ChangeEvent, useContext } from 'react'
-import { AuthContext, AuthContextProps, useLogin } from '../provider/authProvider'
+import { AuthContext, AuthContextProps, useLogin } from '../api/AuthProvider'
 import { useEffect } from 'react'
 
 const Login = () => {
