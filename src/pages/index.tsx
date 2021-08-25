@@ -1,18 +1,11 @@
-import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import router, { useRouter } from 'next/router'
-import { MouseEventHandler } from 'react'
+import router from 'next/router'
 import styles from '../styles/Home.module.css'
 import { GetServerSideProps } from 'next'
+import { Button } from '@chakra-ui/react'
 
 export default function Home() {
-  const route = useRouter()
-
-  // useEffect(() => {
-  //   router.replace('/login')
-  // }, [])
-
   return (
     <div className={styles.container}>
       <Head>
@@ -22,17 +15,19 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Button
+          bgColor='green.700'
+          color='white'
+          p='6'
+          onClick={() => {
+            router.push('/login')
+          }}
+        >
+          login　→
+        </Button>
         <h1 className={styles.title}>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
-        <button
-          onClick={() => {
-            router.push('/practice1')
-            console.log('click')
-          }}
-        >
-          practice1
-        </button>
 
         <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.js</code>
@@ -81,10 +76,13 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  // return {
+  //   redirect: {
+  //     permanent: false,
+  //     destination: '/login',
+  //   },
+  // }
   return {
-    redirect: {
-      permanent: false,
-      destination: '/login',
-    },
+    props: {},
   }
 }

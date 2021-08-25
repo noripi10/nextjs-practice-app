@@ -7,22 +7,22 @@ export const useFirebaseAuth = () => {
 
   const onSignUpMailPassword = useCallback(async (mail: string, password: string): Promise<boolean> => {
     try {
-      console.log(mail, password)
+      // console.log(mail, password)
       await auth.createUserWithEmailAndPassword(mail, password)
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])
 
   const onSignInMailPassword = useCallback(async (mail: string, password: string): Promise<boolean> => {
     try {
-      console.log(mail, password)
+      // console.log(mail, password)
       await auth.signInWithEmailAndPassword(mail, password)
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])
@@ -34,7 +34,7 @@ export const useFirebaseAuth = () => {
 
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])

@@ -17,7 +17,7 @@ import {
 import { FaGoogle, FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { AuthContext, AuthContextProps, useLogin } from '../api/AuthProvider'
+import { AuthContext, AuthContextProps, useLogin } from '../provider/AuthProvider'
 import styles from '../styles/login.module.css'
 
 type FormInputType = {
@@ -53,14 +53,16 @@ const Login = () => {
   // loginしたら遷移
   useEffect(() => {
     if (isLogin) {
-      router.replace('/practice1')
+      setTimeout(() => {
+        router.push('/practice1')
+      }, 1000)
     }
   }, [isLogin, router])
 
   return (
     <>
       <Head>
-        <title>practice1</title>
+        <title>Next.js Practice App</title>
       </Head>
       <header className={styles.header}>
         <Text flexGrow={1} color='white' fontWeight='bold'>
@@ -84,7 +86,8 @@ const Login = () => {
               borderColor='#ddd'
               borderWidth={1}
               p={2}
-              pb={8}>
+              pb={8}
+            >
               <Heading as='h1' size='lg' textAlign='center' pt={2}>
                 <Text fontSize={{ base: 'md', md: 'lg' }}>Login Form</Text>
               </Heading>
@@ -161,7 +164,8 @@ const Login = () => {
             borderRadius='8px'
             borderColor='#ddd'
             borderWidth={1}
-            p={8}>
+            p={8}
+          >
             <Text bgGradient='linear(to-l,#7928CA, #ff0080)' bgClip='text' fontSize='2xl' fontWeight='bold'>
               {loginUser.email}
             </Text>

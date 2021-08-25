@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import Head from 'next/head'
 import {
   Box,
@@ -18,10 +18,13 @@ import {
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import styles from '../styles/practice1.module.css'
 import { useScroll } from '../hooks/useScroll'
-import { AuthContext, AuthContextProps } from '../api/AuthProvider'
+import { AuthContext, AuthContextProps, useLogin } from '../provider/AuthProvider'
+import { useRouter } from 'next/router'
 
 const Practice1 = () => {
-  const { signOut } = useContext<AuthContextProps>(AuthContext)
+  const isLogin = useLogin()
+  const router = useRouter()
+  const { loginUser, signOut } = useContext<AuthContextProps>(AuthContext)
   const { colorMode, setColorMode } = useColorMode()
   const [selectImage, setSelectImage] = useState(images[0])
   const { displayScrollReset, onScrollTop } = useScroll()
@@ -29,10 +32,25 @@ const Practice1 = () => {
   const onChangeColorMode = () => {
     setColorMode((prevColorMode: ColorMode) => (prevColorMode === 'dark' ? 'light' : 'dark'))
   }
+
+  useEffect(() => {
+    if (!!!isLogin) {
+      router.replace('/login')
+    }
+  }, [isLogin, router])
+
+  if (!!!isLogin) {
+    return (
+      <VStack>
+        <Text>...</Text>
+      </VStack>
+    )
+  }
+
   return (
     <>
       <Head>
-        <title>practice1</title>
+        <title>Next.js Practice App</title>
       </Head>
       {/* <header className={styles.header}>
         <div>Practice1</div>
@@ -45,9 +63,10 @@ const Practice1 = () => {
         fontWeight='bold'
         bgGradient='linear(to-br, teal.400, teal.200 )'
       >
-        <Stack flexGrow={1}>
+        <HStack flexGrow={1}>
           <Text>Practice1</Text>
-        </Stack>
+          <Text>{loginUser?.displayName}</Text>
+        </HStack>
         <IconButton
           aria-label='mode-change'
           icon={colorMode === 'dark' ? <FiSun /> : <FiMoon />}
@@ -76,7 +95,7 @@ const Practice1 = () => {
         zIndex={100}
       >
         <Stack flexGrow={1}>
-          <Text>Practice1</Text>
+          <Text>Practice1 {loginUser?.displayName}</Text>
         </Stack>
         <IconButton
           aria-label='mode-change'

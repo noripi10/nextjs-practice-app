@@ -17,7 +17,7 @@ import {
 import { FaEye, FaEyeSlash, FaSun, FaMoon } from 'react-icons/fa'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { AuthContext, AuthContextProps, useLogin } from '../api/AuthProvider'
+import { AuthContext, AuthContextProps, useLogin } from '../provider/AuthProvider'
 import styles from '../styles/login.module.css'
 
 type FormInputType = {

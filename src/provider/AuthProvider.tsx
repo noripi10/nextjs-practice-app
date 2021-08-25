@@ -1,11 +1,13 @@
-import { useState, useEffect, useCallback, createContext } from 'react'
+import { useState, useEffect, useCallback, createContext, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
 import firebase from 'firebase'
 import { auth } from '../libs/firebase'
 import { useContext } from 'react'
+import { Dispatch } from 'react'
 
 export type AuthContextProps = {
   loginUser: firebase.UserInfo | null
+  setLoginUser: Dispatch<SetStateAction<firebase.User | null>>
   onSignUpMailPassword: (mail: string, password: string) => Promise<boolean>
   onSignInMailPassword: (mail: string, password: string) => Promise<boolean>
   onSignInWithGoogle: () => Promise<boolean>
@@ -24,22 +26,22 @@ export const AuthProvider: React.VFC<Props> = ({ children }) => {
 
   const onSignUpMailPassword = useCallback(async (mail: string, password: string): Promise<boolean> => {
     try {
-      console.log(mail, password)
+      // console.log(mail, password)
       await auth.createUserWithEmailAndPassword(mail, password)
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])
 
   const onSignInMailPassword = useCallback(async (mail: string, password: string): Promise<boolean> => {
     try {
-      console.log(mail, password)
+      // console.log(mail, password)
       await auth.signInWithEmailAndPassword(mail, password)
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])
@@ -51,7 +53,7 @@ export const AuthProvider: React.VFC<Props> = ({ children }) => {
 
       return true
     } catch (error) {
-      console.log(error)
+      console.warn(error)
       return false
     }
   }, [])
@@ -76,8 +78,7 @@ export const AuthProvider: React.VFC<Props> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ loginUser, onSignUpMailPassword, onSignInMailPassword, onSignInWithGoogle, signOut }}
-    >
+      value={{ loginUser, setLoginUser, onSignUpMailPassword, onSignInMailPassword, onSignInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   )
