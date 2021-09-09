@@ -3,9 +3,10 @@ import Image from 'next/image'
 import router from 'next/router'
 import styles from '../styles/Home.module.css'
 import { GetServerSideProps } from 'next'
-import { Button } from '@chakra-ui/react'
+import { HStack, Button, useColorMode } from '@chakra-ui/react'
 
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <div className={styles.container}>
       <Head>
@@ -15,16 +16,39 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Button
-          bgColor='green.700'
-          color='white'
-          p='6'
-          onClick={() => {
-            router.push('/login')
-          }}
-        >
-          login　→
-        </Button>
+        <HStack>
+          <Button
+            bgColor='green.700'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/login')
+            }}
+          >
+            login　→
+          </Button>
+          <Button
+            bgColor='orange.400'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/practice2')
+            }}
+          >
+            practice2 →
+          </Button>
+          <Button
+            bgColor='twitter.400'
+            color='white'
+            p='6'
+            onClick={() => {
+              toggleColorMode()
+            }}
+          >
+            change theme
+          </Button>
+        </HStack>
+
         <h1 className={styles.title}>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
@@ -67,7 +91,7 @@ export default function Home() {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+            <Image src='./vercel.svg' alt='Vercel Logo' width={72} height={16} />
           </span>
         </a>
       </footer>
