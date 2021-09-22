@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 
-export const useScroll = () => {
+export const useScroll = (scrollValue: number = 100) => {
   const [displayScrollReset, setDisplayScrollReset] = useState(false)
 
   const onScrollTop = useCallback(() => {
@@ -12,7 +12,7 @@ export const useScroll = () => {
 
     // requestAnimationFrame(() => {
     // headerの高さ100pxよりスクロール位置が下がったらコントロールを表示する
-    if (scrollTop > 100) {
+    if (scrollTop > scrollValue) {
       setDisplayScrollReset(true)
     } else {
       setDisplayScrollReset(false)

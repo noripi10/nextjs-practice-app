@@ -4,6 +4,7 @@ import router from 'next/router'
 import styles from '../styles/Home.module.css'
 import { GetServerSideProps } from 'next'
 import { HStack, Button, useColorMode } from '@chakra-ui/react'
+import { useLogin } from '../provider/AuthProvider'
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -26,6 +27,16 @@ export default function Home() {
             }}
           >
             login　→
+          </Button>
+          <Button
+            bgColor='purple.700'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/login_nativebase')
+            }}
+          >
+            login(NativeBase)　→
           </Button>
           <Button
             bgColor='orange.400'
@@ -91,7 +102,7 @@ export default function Home() {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src='./vercel.svg' alt='Vercel Logo' width={72} height={16} />
+            {/* <Image src='./vercel.svg' alt='Vercel Logo' width={72} height={16} /> */}
           </span>
         </a>
       </footer>

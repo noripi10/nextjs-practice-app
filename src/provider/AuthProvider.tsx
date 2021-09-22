@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback, createContext, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
-import firebase from 'firebase'
 import { auth } from '../libs/firebase'
 import { useContext } from 'react'
 import { Dispatch } from 'react'
+
+import firebase from 'firebase'
 
 export type AuthContextProps = {
   loginUser: firebase.UserInfo | null
@@ -78,7 +79,8 @@ export const AuthProvider: React.VFC<Props> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ loginUser, setLoginUser, onSignUpMailPassword, onSignInMailPassword, onSignInWithGoogle, signOut }}>
+      value={{ loginUser, setLoginUser, onSignUpMailPassword, onSignInMailPassword, onSignInWithGoogle, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   )

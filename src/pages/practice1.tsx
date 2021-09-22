@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useLayoutEffect, useCallback } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import {
   Box,
   Image as ChakraImage,
@@ -11,15 +12,19 @@ import {
   useColorMode,
   ColorMode,
   SkeletonCircle,
-  Skeleton,
   SkeletonText,
   VStack,
+  Button,
+  Divider,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import styles from '../styles/practice1.module.css'
 import { useScroll } from '../hooks/useScroll'
 import { AuthContext, AuthContextProps, useLogin } from '../provider/AuthProvider'
-import { useRouter } from 'next/router'
+
+import axios from 'axios'
+import firebase from 'firebase/app'
 
 const Practice1 = () => {
   const isLogin = useLogin()
@@ -27,17 +32,56 @@ const Practice1 = () => {
   const { loginUser, signOut } = useContext<AuthContextProps>(AuthContext)
   const { colorMode, setColorMode } = useColorMode()
   const [selectImage, setSelectImage] = useState(images[0])
-  const { displayScrollReset, onScrollTop } = useScroll()
+  const { displayScrollReset, onScrollTop } = useScroll(100)
+  const [callResult, setCallResult] = useState('')
+  const [requestResult, setRequestResult] = useState('')
+
+  const bgColor = useColorModeValue('#000', '#ddd')
 
   const onChangeColorMode = () => {
     setColorMode((prevColorMode: ColorMode) => (prevColorMode === 'dark' ? 'light' : 'dark'))
   }
 
-  useEffect(() => {
-    if (!!!isLogin) {
-      router.replace('/login')
-    }
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      if (!!!isLogin) {
+        router.replace('/login')
+      }
+    }, 1000)
   }, [isLogin, router])
+
+  const onCall = useCallback(async () => {
+    try {
+      // そのまま直接実行するパターン
+      const functions = firebase.app().functions('asia-northeast1')
+      const onCallSample = functions.httpsCallable('onCallSample')
+      onCallSample({ data: 'abcdefg' })
+        .then((response) => {
+          console.info('result', response.data)
+          setCallResult(JSON.stringify(response.data, null, 2))
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+
+      // api経由で呼び出すパターン
+      // const result = await axios.post('/api/firebase', { data: 'abcde' })
+      // console.info('result', result.data)
+    } catch (error) {
+      console.warn('error!!!', error)
+    }
+  }, [])
+
+  const onRequest = useCallback(async () => {
+    try {
+      // api経由で呼び出す
+      const result = await axios.post('/api/firebase', { data: 'abcde' })
+      console.info('result', result.data)
+      setRequestResult(JSON.stringify(result.data, null, 2))
+    } catch (error) {
+      console.warn('error!!!', error)
+    }
+  }, [])
 
   if (!!!isLogin) {
     return (
@@ -183,6 +227,21 @@ const Practice1 = () => {
             </HStack>
             <SkeletonText noOfLines={4} />
           </Box>
+          <VStack m={2} alignItems='flex-start'>
+            <HStack my={1}>
+              <Button m={1} w={300} variant='solid' bgGradient={'linear(to-r, red.200, pink.500)'} onClick={onCall}>
+                firebase onCallSample call
+              </Button>
+              <pre>{callResult}</pre>
+            </HStack>
+            <Divider />
+            <HStack my={1}>
+              <Button m={1} w={300} variant='solid' bgGradient='linear(to-r, teal.400, green.300)' onClick={onRequest}>
+                firebase onRequestSample call
+              </Button>
+              <pre>{requestResult}</pre>
+            </HStack>
+          </VStack>
         </div>
       </HStack>
       {displayScrollReset && (
