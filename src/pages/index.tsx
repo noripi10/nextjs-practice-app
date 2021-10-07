@@ -110,14 +110,14 @@ export default function Home() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  // return {
-  //   redirect: {
-  //     permanent: false,
-  //     destination: '/login',
-  //   },
-  // }
-  return {
-    props: {},
-  }
-}
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   // return {
+//   //   redirect: {
+//   //     permanent: false,
+//   //     destination: '/login',
+//   //   },
+//   // }
+//   return {
+//     props: {},
+//   }
+// }
