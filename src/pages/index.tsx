@@ -48,6 +48,9 @@ export default function Home() {
           >
             practice2 →
           </Button>
+          <Button bgColor='messenger.900' color='white' p='6' onClick={() => router.push('/glitch')}>
+            glitch →
+          </Button>
           <Button
             bgColor='twitter.400'
             color='white'

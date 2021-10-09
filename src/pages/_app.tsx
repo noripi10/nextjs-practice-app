@@ -6,6 +6,8 @@ import { NativeBaseProvider } from 'native-base'
 import { AuthProvider } from '../provider/AuthProvider'
 import { theme } from '../theme'
 
+import '../styles/glitch.scss'
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>

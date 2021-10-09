@@ -1,3 +1,5 @@
+const path = require('path')
+
 const withPlugins = require('next-compose-plugins')
 const withTM = require('next-transpile-modules')([
   'native-base',
@@ -42,6 +44,13 @@ module.exports = withPlugins(
       }
       config.resolve.extensions = ['.web.js', '.web.ts', '.web.tsx', ...config.resolve.extensions]
       return config
+    },
+    sassOptions: {
+      includePaths: [path.join(__dirname, 'src', 'styles')],
+    },
+    images: {
+      deviceSizes: [340, 640, 768, 1024, 1280, 1440, 1980],
+      domains: ['source.unsplash.com'],
     },
   }
 )
