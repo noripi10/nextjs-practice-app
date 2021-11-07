@@ -46,7 +46,7 @@ const Item: VFC<ItemProps> = (props: ItemProps) => {
         <Collapse in={isOpen}>
           <Box bgColor='blue.300' p='8' m='0' borderBottomRadius='4'>
             <OrderedList>
-              <ListItem>
+              <ListItem textDecorationLine='underline'>
                 <HStack>
                   <Text bgGradient='linear(to-r, #7928CA, #FF0090)'>Lorem ipsum dolor sit amet</Text>
                   <FaBolt color='#e4d619' />

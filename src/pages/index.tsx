@@ -3,7 +3,7 @@ import Image from 'next/image'
 import router from 'next/router'
 import styles from '../styles/Home.module.css'
 import { GetServerSideProps } from 'next'
-import { HStack, Button, useColorMode } from '@chakra-ui/react'
+import { HStack, Wrap, Button, Text, useColorMode } from '@chakra-ui/react'
 import { useLogin } from '../provider/AuthProvider'
 
 export default function Home() {
@@ -38,16 +38,7 @@ export default function Home() {
           >
             login(NativeBase)　→
           </Button>
-          <Button
-            bgColor='orange.400'
-            color='white'
-            p='6'
-            onClick={() => {
-              router.push('/practice2')
-            }}
-          >
-            practice2 →
-          </Button>
+
           <Button bgColor='messenger.900' color='white' p='6' onClick={() => router.push('/glitch')}>
             glitch →
           </Button>
@@ -62,6 +53,31 @@ export default function Home() {
             change theme
           </Button>
         </HStack>
+        <HStack>
+          <Button
+            bgColor='orange.400'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/practice_collapse')
+            }}
+          >
+            practice_collapse →
+          </Button>
+          <Button
+            bgColor='teal.400'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/practice_notion')
+            }}
+          >
+            practice_notion →
+          </Button>
+        </HStack>
+        <Wrap>
+          <Text>{process.env.customKey}</Text>
+        </Wrap>
 
         <h1 className={styles.title}>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>

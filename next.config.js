@@ -52,5 +52,8 @@ module.exports = withPlugins(
       deviceSizes: [340, 640, 768, 1024, 1280, 1440, 1980],
       domains: ['source.unsplash.com'],
     },
+    env: {
+      constomKey: 'ABCDEFG',
+    },
   }
 )

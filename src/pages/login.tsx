@@ -73,7 +73,7 @@ const Login = () => {
         </Button>
       </header>
 
-      <Flex display='flex' justify='center' align='center' height='70vh'>
+      <Flex justify='center' align='center' height='1000px'>
         {!!!loginUser ? (
           <>
             <Box
