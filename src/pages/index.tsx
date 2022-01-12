@@ -74,6 +74,16 @@ export default function Home() {
           >
             practice_notion →
           </Button>
+          <Button
+            bgColor='blue.400'
+            color='white'
+            p='6'
+            onClick={() => {
+              router.push('/practice_twitter')
+            }}
+          >
+            practice_twitter →
+          </Button>
         </HStack>
         <Wrap>
           <Text>{process.env.customKey}</Text>

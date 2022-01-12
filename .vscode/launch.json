@@ -4,9 +4,17 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach to application",
+      "name": "Nextjs: Server",
       "skipFiles": ["<node_internals>/**"],
-      "port": 9229
+      "port": 9229,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Nextjs: Client",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }

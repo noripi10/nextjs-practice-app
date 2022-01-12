@@ -29,10 +29,12 @@
     "sass": "^1.42.1",
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5",
+    "twitter": "^1.7.1",
     "use-file-upload": "^1.0.9"
   },
   "devDependencies": {
     "@types/react": "17.0.15",
+    "@types/twitter": "^1.7.1",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
     "next-compose-plugins": "^2.2.1",
