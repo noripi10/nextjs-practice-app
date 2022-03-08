@@ -1,10 +1,11 @@
-import { memo, VFC, useState } from 'react'
+import { memo, VFC, useState, Suspense } from 'react'
 import { Stack, VStack, HStack, Box, OrderedList, ListItem, Text, Collapse } from '@chakra-ui/react'
 import { FaBolt, FaArrowUp, FaArrowDown } from 'react-icons/fa'
+import { Users } from '../component/Users'
 
 export default function Practice2() {
   return (
-    <Stack flex={1} h='100vh'>
+    <Stack h='100vh' display={'flex'}>
       <VStack
         flex={1}
         bgGradient='linear(to-b, #a4c9ee, #074757)'
@@ -55,6 +56,12 @@ const Item: VFC<ItemProps> = (props: ItemProps) => {
               <ListItem>Consectetur adipiscing elit</ListItem>
               <ListItem>Integer molestie lorem at massa</ListItem>
               <ListItem>Facilisis in pretium nisl aliquet</ListItem>
+              {isOpen && (
+                <Suspense fallback={<p>loading...</p>}>
+                  <Text>{'users' + props.id}</Text>
+                  <Users id={`users${props.id}`} />
+                </Suspense>
+              )}
             </OrderedList>
           </Box>
         </Collapse>
